@@ -12,7 +12,8 @@ export default function Login()
     console.log("Email"+email);
     console.log("Password"+password);
   }
- 
+  
+  
   
   return (
     <form onSubmit={handleSubmit}>
