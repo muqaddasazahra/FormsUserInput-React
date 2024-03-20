@@ -7,9 +7,10 @@ export default function Signup() {
     const acquisotionChannel=formData.getAll("acquisition");
     data.acquisition=acquisotionChannel;
     console.log(data);
+    
+    event.target.reset();
 
   }
-  
   return (
     <form onSubmit={handleSubmit}>
       <h2>Welcome on board!</h2>
