@@ -5,6 +5,11 @@ export default function Login() {
     email: "",
     password:""
   });
+  
+  const [didEdit, setDidEdit]=useState({
+    email: false,
+    password: false
+  })
 
   function handleSubmit(event)
   { 
@@ -19,17 +24,31 @@ export default function Login() {
       ...prevValues,
       [identifier]:event.target.value
     }))
+    setDidEdit(prevValues=>(
+      {
+        ...prevValues,
+        [identifier]:false
+      }
+    ))
   }
-  
-  const inputIsValid= enteredValues.email!=="" && !enteredValues.email.includes("@")
-  return (
+  function handleInputBlur(identifier)
+  {
+    setDidEdit((prev)=>
+    ({
+      ...prev,
+      [identifier]:true
+    }))
+  }
+  // const inputIsValid= enteredValues.email!=="" && !enteredValues.email.includes("@")  ...validating on keystrokes
+  const inputIsValid= didEdit.email && !enteredValues.email.includes("@")
+  return ( 
     <form onSubmit={handleSubmit}>
       <h2>Login</h2>
 
       <div className="control-row">
         <div className="control no-margin">
           <label htmlFor="email">Email</label>
-          <input id="email" type="email" name="email" onChange={(event)=>handleInputChange("email",event)} value={enteredValues.email}/>
+          <input id="email" type="email" name="email" onBlur={()=>handleInputBlur("email")}onChange={(event)=>handleInputChange("email",event)} value={enteredValues.email}/>
           <div className="control-error">{inputIsValid && <p>Please enter a valid email.</p>}</div>
         </div>
         
